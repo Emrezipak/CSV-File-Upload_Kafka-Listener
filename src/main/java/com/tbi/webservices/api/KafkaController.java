@@ -14,7 +14,7 @@ import com.tbi.webservices.dto.Webhook;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/kafka")
+@RequestMapping("/statusUpdate")
 @RequiredArgsConstructor
 public class KafkaController {
 
