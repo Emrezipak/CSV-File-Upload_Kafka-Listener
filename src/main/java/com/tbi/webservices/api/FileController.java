@@ -18,7 +18,7 @@ public class FileController {
     private final FileUploadService fileUploadService;
     @PostMapping(value = "/uploadFile")
     public ResponseEntity<?> fileUpload(@RequestParam(name = "file") MultipartFile file, @RequestParam(name="distribution") String distributionBody){
-            return new ResponseEntity<>(fileUploadService.fileUpload(file,distributionBody),HttpStatus.OK);
+            return new ResponseEntity<>(fileUploadService.createRequestBody(file,distributionBody),HttpStatus.OK);
     }
     
 }

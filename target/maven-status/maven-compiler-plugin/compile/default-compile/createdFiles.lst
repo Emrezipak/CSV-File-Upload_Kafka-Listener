@@ -5,6 +5,7 @@ com\tbi\webservices\config\KafkaConfiguration.class
 com\tbi\webservices\payload\response\FileResponse.class
 com\tbi\webservices\service\KafkaListenerService.class
 com\tbi\webservices\service\FileUploadService.class
+com\tbi\webservices\dto\Status.class
 com\tbi\webservices\dto\Webhook.class
 com\tbi\webservices\WebServicesApplication.class
 com\tbi\webservices\api\FileController.class
