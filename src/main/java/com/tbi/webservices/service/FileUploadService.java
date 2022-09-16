@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tbi.webservices.dto.DistributionBody;
 import com.tbi.webservices.dto.Status;
 import com.tbi.webservices.payload.response.FileResponse;
+import com.tbi.webservices.payload.response.GetFileResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,11 @@ import java.util.Date;
 public class FileUploadService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadService.class);
-    @Value("${tbi.file.path}")
+    @Value("${tbi.csv.callback.path}")
     private String filePath;
-
     private final ObjectMapper objectMapper;
+
+
 
     public FileResponse createRequestBody(MultipartFile file, String distributionBody) {
 
@@ -98,4 +100,5 @@ public class FileUploadService {
         String updateDate = csvFile.replaceAll(":","-").replaceAll(" ","-");
         return fileName.substring(0, lastDotIndex )+"_"+distributionId+"_"+updateDate;
     }
+
 }
