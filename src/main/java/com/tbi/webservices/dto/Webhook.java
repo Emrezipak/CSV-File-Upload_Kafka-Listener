@@ -1,5 +1,6 @@
 package com.tbi.webservices.dto;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(of = {"taskId", "status"})
-public class Webhook {
+public class Webhook implements Serializable {
     private String id = UUID.randomUUID().toString();
     private Long taskId;
     private String status;

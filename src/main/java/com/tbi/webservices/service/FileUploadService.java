@@ -1,17 +1,14 @@
 package com.tbi.webservices.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tbi.webservices.dto.DistributionBody;
-import com.tbi.webservices.dto.Status;
+import com.tbi.webservices.payload.request.DistributionStatus;
 import com.tbi.webservices.payload.response.FileResponse;
-import com.tbi.webservices.payload.response.GetFileResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,8 +25,6 @@ public class FileUploadService {
     @Value("${tbi.csv.callback.path}")
     private String filePath;
     private final ObjectMapper objectMapper;
-
-
 
     public FileResponse createRequestBody(MultipartFile file, String distributionBody) {
 
@@ -50,9 +45,9 @@ public class FileUploadService {
     }
     public FileResponse fileUpload(MultipartFile file,DistributionBody distributionBodyObject){
         if(file.getOriginalFilename().endsWith(".csv") &&
-                Status.SUCCESS.name().equalsIgnoreCase(distributionBodyObject.getStatus())){
+                DistributionStatus.SUCCESS.name().equalsIgnoreCase(distributionBodyObject.getStatus())){
             try {
-                String fileName = createFileName(distributionBodyObject.getDistributionId(),file.getOriginalFilename());
+                String fileName = createFileName(distributionBodyObject.getDistributionId());
                 File path = new File(filePath + fileName);
                 path.createNewFile();
                 FileOutputStream output = new FileOutputStream(path);
@@ -87,18 +82,15 @@ public class FileUploadService {
     }
 
     public boolean checkDistributionStatus(DistributionBody distributionBodyObject) {
-        if (Status.FAIL.name().equalsIgnoreCase(distributionBodyObject.getStatus())
-                || Status.SUCCESS.name().equalsIgnoreCase(distributionBodyObject.getStatus())) {
+        if (DistributionStatus.FAIL.name().equalsIgnoreCase(distributionBodyObject.getStatus())
+                || DistributionStatus.SUCCESS.name().equalsIgnoreCase(distributionBodyObject.getStatus())) {
             return true;
         }
         return false;
     }
 
-    public String createFileName(Long distributionId,String fileName){
-        int lastDotIndex = fileName.lastIndexOf('.');
-        String csvFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss'.csv'").format(new Date());
-        String updateDate = csvFile.replaceAll(":","-").replaceAll(" ","-");
-        return fileName.substring(0, lastDotIndex )+"_"+distributionId+"_"+updateDate;
+    public String createFileName(Long distributionId){
+        return distributionId+".csv";
     }
 
 }

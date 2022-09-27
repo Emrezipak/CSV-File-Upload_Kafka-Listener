@@ -1,9 +1,9 @@
 package com.tbi.webservices.api;
 
-import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.core.KafkaTemplate;
+import com.tbi.webservices.payload.response.ResponseMessage;
+import com.tbi.webservices.service.KafkaListenerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +18,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class KafkaController {
 
-    @Value("${tbi.kafka.topic}")
-    private String topic;
-
-    private final KafkaTemplate<String, Webhook> kafkaTemplate;
-
+    private final KafkaListenerService kafkaListenerService;
     @PostMapping
-    public void sendMessage(@RequestBody Webhook webhook) {
-        kafkaTemplate.send(topic, UUID.randomUUID().toString(), webhook);
+    public ResponseEntity<ResponseMessage> sendMessage(@RequestBody Webhook webhook) {
+        return ResponseEntity.ok(kafkaListenerService.sendMessage(webhook));
     }
 }
