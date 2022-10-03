@@ -19,4 +19,5 @@ public class ResponseMessage {
 
     private String message;
     private Integer status;
+    private String response;
 }

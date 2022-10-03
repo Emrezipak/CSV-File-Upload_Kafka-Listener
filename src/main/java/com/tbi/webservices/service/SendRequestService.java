@@ -60,11 +60,12 @@ public class SendRequestService {
                         .build();
 
                 Response response = okHttpClient.newCall(request).execute();
-
-               return ResponseMessage.builder().status(response.code())
-                       .message(response.body().string()).build();
+                return ResponseMessage.builder()
+                       .status(response.code())
+                       .response(response.body().string())
+                       .build();
             } else {
-                return ResponseMessage.builder().message("file not found in the path").status(404).build();
+                return ResponseMessage.builder().message("File named "+distributionId+".csv not found in the path").status(404).build();
             }
 
         } catch (Exception e) {
