@@ -22,7 +22,7 @@ import java.util.Date;
 public class FileUploadService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadService.class);
-    @Value("${tbi.csv.callback.path}")
+    @Value("${project.csv.callback.path}")
     private String filePath;
     private final ObjectMapper objectMapper;
 

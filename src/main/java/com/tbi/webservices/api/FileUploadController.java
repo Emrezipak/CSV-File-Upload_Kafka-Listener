@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("tbitask")
+@RequestMapping("api/file-service")
 @RequiredArgsConstructor
 public class FileUploadController {
 

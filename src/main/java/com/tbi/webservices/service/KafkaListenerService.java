@@ -21,13 +21,13 @@ import java.util.UUID;
 public class KafkaListenerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListenerService.class);
-    @Value("${tbi.kafka.topic}")
+    @Value("${project.kafka.topic}")
     private String topic;
     private final KafkaTemplate<String, Webhook> kafkaTemplate;
 
     @KafkaListener(
-            topics = "${tbi.kafka.topic}",
-            groupId = "${tbi.kafka.group.id}"
+            topics = "${project.kafka.topic}",
+            groupId = "${project.kafka.group.id}"
     )
     public void listen(@Payload Webhook webhook) {
         LOGGER.info("Message received.. MessageID : {} Message: {} Date : {}",

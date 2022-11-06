@@ -23,10 +23,10 @@ import com.tbi.webservices.dto.Webhook;
 @Configuration
 public class KafkaConfiguration {
 
-    @Value("${tbi.kafka.address}")
+    @Value("${project.kafka.address}")
     private String kafkaAddress;
 
-    @Value("${tbi.kafka.group.id}")
+    @Value("${project.kafka.group.id}")
     private String groupId;
 
     @Bean
